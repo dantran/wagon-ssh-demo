@@ -1,0 +1,15 @@
+#mac
+.DS_Store
+#idea
+.idea
+*.iml
+#maven
+target
+.external-resources
+.mvn/timing.properties
+#jenkins
+.repository
+#eclipse
+.settings
+.classpath
+.project
