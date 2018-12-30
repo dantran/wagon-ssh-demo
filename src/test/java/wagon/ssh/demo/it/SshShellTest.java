@@ -21,9 +21,9 @@ public class SshShellTest {
     @Test
     public void testSshShell() throws Exception {
 
-        String testHost = "localhost";
+        String testHost = "localhost";  //adjust your test how
 
-        SshShell sshShell = this.sshShellFactory.getShell(testHost, "build", "changeme");
+        SshShell sshShell = this.sshShellFactory.getShell(testHost, "build", "changeme"); //adjust your test host credential
 
         String commonRemoteFile = "/tmp/wagon-ssh-demo.dat";
         File commonDownloadFile = new File("target/wagon-ssh-demo.dat");
