@@ -1,5 +1,7 @@
 package wagon.ssh.demo.it;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,14 +19,26 @@ public class SshShellTest {
     }
 
     @Test
-    public void testDowload() throws Exception {
+    public void testSshShell() throws Exception {
 
         String testHost = "localhost";
 
-        SshShell sshShell = this.sshShellFactory.getShell(testHost, "root", "changeme");
+        SshShell sshShell = this.sshShellFactory.getShell(testHost, "build", "changeme");
 
-        //sshShell.download(from, to);
+        String commonRemoteFile = "/tmp/wagon-ssh-demo.dat";
+        File commonDownloadFile = new File("target/wagon-ssh-demo.dat");
+        commonDownloadFile.getParentFile().mkdirs();
 
+        File smallLocalFile = new File("target/pom.xml");
+        sshShell.upload(smallLocalFile, commonRemoteFile);
+        sshShell.download(commonRemoteFile, commonDownloadFile);  //wagon-3.3 hangs here
+
+
+        File largeLocalFile = new File("src/test/data/32k-plus.txt");
+        sshShell.upload(largeLocalFile, commonRemoteFile);
+        sshShell.download(commonRemoteFile, commonDownloadFile);
+
+        sshShell.execute("rm -f " + commonRemoteFile);
 
     }
 
